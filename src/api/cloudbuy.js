@@ -1,18 +1,18 @@
 // import util from '../utils/util'
 // const host="http://apidoc.xiaoyi.com"
 import { getData, requestData, putData, postData } from "./index";
-import {getLocale} from '../utils/convert'
-import { getBasicInfoFromApp, isAppleTestAccount } from '../utils/getCommonInfo'
+import {getLocale} from './../utils/convert'
+import { getBasicInfoFromApp, isAppleTestAccount } from './../utils/getCommonInfo'
 // import Notify from 'vant/lib/notify';
 // import { Dialog } from 'vant';
 
-import {getIosMoreSkuChannel} from '../utils/convert';
+import {getIosMoreSkuChannel} from './../utils/convert';
 import axios from "axios";
-function Notify () {
-    console.log('Notify')
+function Notify (e) {
+    
 }
-function Dialog() {
-    console.log('Dialog')
+function Dialog(e) {
+    
 }
 function objToEmapty(obj){
   for(let index in obj){

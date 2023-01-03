@@ -1,4 +1,4 @@
-// import { firebaseAnalytics } from "../../src/firebaseConfig";
+// import { firebaseAnalytics } from "../firebaseConfig";
 // import { brazeAnalytics } from "./getCommonInfo";
 
 // export function integrateAnalytic(name, params = null, num = 2) {
