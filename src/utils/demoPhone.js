@@ -5,6 +5,23 @@ export default class DemoPhone{
       "44cdbb75e37beb3f9613194ff0e24dfb",
       "57ad781552aacebe2eab52174636639c"
     );
+    const U3380510 = createUserInfo(
+      "3380510",
+      "37599bd5ca0ae18c38a74973959363ff",
+      "1501a77aae508d749e6e8792c271604e"
+    );
+  
+    const U4092534 = createUserInfo(
+      "4092534",
+      "bf1938ca947bbc6d91c63115c11311c9",
+      "60c4b96ccb999ac368adfc230fa9febf"
+    );
+  
+    const U4333090 = createUserInfo(
+      "4333090",
+      "17416e19cb12999552baa7c2d721c431",
+      "049c82905c8f8cc4a26fd2a945e625c7"
+    )
     const defaultObj = {
       uid: "",
       region: "USA",
