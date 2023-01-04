@@ -6,7 +6,6 @@ export default function bestLoading(funName){
     if(!dismissLoadingSign){
       dismissLoadingSign = true
       loadingTimeout = window.setTimeout(()=>{
-        console.log(funName)
        // dsBridge.call(funName)
         showLoadingSign = false
         dismissLoadingSign = false
@@ -19,7 +18,6 @@ export default function bestLoading(funName){
       dismissLoadingSign = false
     }
     if(!showLoadingSign){
-      console.log(funName)
     //  dsBridge.call(funName)
       showLoadingSign = true
     }

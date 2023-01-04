@@ -33,7 +33,7 @@ export function getCloudProductList(json) {
     channel:json.channel,
     country:basicData.country
   }
-  console.log('json.type =' + json.type)
+
   if((basicData.deviceInfo != 'Android') && (isAppleTestAccount() == 1) && json.type != 3 ){
     tParam.channel = getIosMoreSkuChannel(basicData.appPlatform)
   }
@@ -85,7 +85,6 @@ export function generateOrder(json) {
   if (json && json.uid) tParam.uid = json.uid || "";
   const data = requestData("/orderpay/v8/createOrder", tParam, {});
   data.then(json=>{
-    console.log(json)
 
     if(json.code == 60058){
       Dialog.alert({
@@ -157,7 +156,7 @@ export function renewOrder(json = {}) {
 
   const data =  requestData("/orderpay/v8/renewalOrder", tParam, {});
   data.then(json=>{
-    console.log(json)
+
     if(json.code == 60058){
       Dialog.alert({
         title: 'Woah! Hold up… ',
@@ -557,7 +556,6 @@ export function addCard(json){
   }
   const resData = requestData("/orderpay/v8/stripe/pay/card/add", tParam,{});
   resData.then(json=>{
-    console.log('cardAdd = ' +  json)
     if (json.code !== 20000){
       const msg = JSON.parse(json.msg)
       Notify(msg.error.message)

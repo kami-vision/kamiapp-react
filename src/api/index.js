@@ -4,6 +4,7 @@ import bestLoading from '../utils/bestLoading';
 import { getHost, getUserInfo } from '../utils/getCommonInfo';
 import createHmac from "create-hmac";
 import base64 from "base64-js";
+
 // import Notify from "vant/lib/notify";
 
 const headerOptions = {
