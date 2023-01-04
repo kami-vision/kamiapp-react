@@ -1,25 +1,46 @@
 .block {
-    width: 150px;
+    width: 156px;
     min-height: 411px;
-    padding-top: 2px;
     border: 1px solid rgba(151,151,151,0.23);
     border-radius: 8px;
 }
 .adm-jumbo-tabs-tab-active .block {
     border: 2px solid #00baad;
+    padding: 3px;
 }
 .sku-box {
     background: #fefffe;
 }
-.header {
-    min-height: 60px;
-    border: 3px solid #fefffe;
+.header-content {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
 }
-.adm-jumbo-tabs-tab-active .header {
-    background: linear-gradient(98.57deg, #15C7C5 0%, #2DD6B3 100%);
-    
+.line {
+    height: 1px;
+    background-color: #fefffe;
+    width: 100%;
+}
+.price{
+    border-top:1px #fff solid;
+    text-align: center;
+    padding:8px 0 10px 0;
+    color: #00baad;
+}
+.price span {
+    font-weight: 600;
+    font-size: 30px;
+}
+.header{
+    font-weight: 500;
+    padding:9px 0;
+    text-align: center;
+    padding-top:25px;
+}
+.adm-jumbo-tabs-tab-active .header-content {
+    background: linear-gradient(98.57deg, #15C7C5 0%, #2DD6B3 100%);   
+}
+.adm-jumbo-tabs-tab-active .price {
+    color: #ffffff;
 }
 .adm-jumbo-tabs-tab-active, .adm-jumbo-tabs-tab-description {
     background-color: #fefffe!important;
@@ -27,6 +48,7 @@
 .detail {
     background-color: #fefffe;
     min-height: 340px;
+    border-top: 1px solid #e8e8e8;
 }
 .btnwrapper {
     font-size: 16px;
@@ -42,4 +64,9 @@
 }
 button {
     width: 50%;
+}
+.pop-head {
+    font-weight: 600;
+    padding: 48px 32px 36px;
+    text-align: center;
 }
