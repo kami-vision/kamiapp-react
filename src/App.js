@@ -6,7 +6,6 @@ import {
 import routes from './routers'
 
 const router = createBrowserRouter(routes);
-
 function App() {
   return (
     <RouterProvider router={router} />

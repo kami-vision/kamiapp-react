@@ -1,9 +1,7 @@
 import dsbridge from "./dsbridge";
-
+import DemoPhone from './demoPhone'
 // import Notify from "vant/lib/notify";
 //import i18n from "../lang/i18n";
-import dsBridge from "./dsbridge";
-import DemoPhone from './demoPhone'
 
 // 获取用户信息 userid token tokensecret region country
 export function getUserInfo() {
@@ -179,11 +177,11 @@ export function getGooglePurchases() {
 }
 
 function callMethod(name) {
-	if (process.env.NODE_ENV == 'development') {
+	const backData = dsBridge.call(name);
+	if(!backData) {
 	  var instance = new DemoPhone() ;
 	  return Reflect.get(instance, name).call(instance)
 	}
-	const backData = dsBridge.call(name);
 	let resData = backData
 	try {
 		resData = JSON.parse(backData);

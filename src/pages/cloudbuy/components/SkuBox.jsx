@@ -10,6 +10,7 @@ const Description = ({ value }) => {
         <div className="price">
           $<span> {value.price / 100} </span>/{value.serviceCycle == 1 ? "Mo" : "Yr"}
         </div>
+        <div>{value.skuName}</div>
       </div>
       <div className="detail"></div>
     </div>

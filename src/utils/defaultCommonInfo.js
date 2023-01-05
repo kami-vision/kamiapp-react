@@ -698,54 +698,10 @@ export default function setCommonInfoDefault() {
 		ZMW: "ZK",
 		ZWL: "$",
 	};
-	defaultObj.host = "http://test-api.us.xiaoyi.com"; //  'https://gw-us-kamihome.dev.kamicloud.net'
+	
 
-	const U3675165 = createUserInfo(
-		"3675165",
-		"889931e18c5dd897ce230fae068cbbb9",
-		"cff29237f7b218382a92a5ab95f8a1ce"
-	);
-	const U1449476 = createUserInfo(
-		"1449476",
-		"2c62c234cdebc1fc8604b576ad7ee12e",
-		"e021b05c2257d25920e87353327f24ec"
-	);
-
-	const U3529382 = createUserInfo(
-		"3529382",
-		"44cdbb75e37beb3f9613194ff0e24dfb",
-		"57ad781552aacebe2eab52174636639c"
-	);
-
-	const U3380510 = createUserInfo(
-		"3380510",
-		"37599bd5ca0ae18c38a74973959363ff",
-		"1501a77aae508d749e6e8792c271604e"
-	);
-
-	const U4092534 = createUserInfo(
-		"4092534",
-		"bf1938ca947bbc6d91c63115c11311c9",
-		"60c4b96ccb999ac368adfc230fa9febf"
-	);
-
-	const U4333090 = createUserInfo(
-		"4333090",
-		"17416e19cb12999552baa7c2d721c431",
-		"049c82905c8f8cc4a26fd2a945e625c7"
-	)
-
-	defaultObj = Object.assign(defaultObj, U3529382);
 
 	return defaultObj;
 }
 
-function createUserInfo(uid, token, secretToken) {
-	return {
-		userId: uid,
-		userid: uid,
-		token: token,
-		tokenSecret: secretToken,
-		tokensecret: secretToken,
-	};
-}
+
