@@ -16,9 +16,6 @@ const Description = ({ value }) => {
           { value.discount&& (value.priceReal > value.yearPrice) && isAppleTestAccount != 1? <p >Was $<span>{ value.priceReal}</span> </p>:null}
           <p >Equals to ${value.monthPrice} per month</p>
         </div>:null}
- 
-
-
       </div>
       <div className="detail"></div>
     </div>
