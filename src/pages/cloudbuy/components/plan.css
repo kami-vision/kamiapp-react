@@ -1,72 +1,139 @@
 .block {
-    width: 156px;
-    min-height: 411px;
-    border: 1px solid rgba(151,151,151,0.23);
-    border-radius: 8px;
+  width: 152px;
+  min-height: 411px;
+  border: 1px solid rgba(151, 151, 151, 0.23);
+  border-radius: 8px;
+  position: relative;
+}
+.month, .original-price{color: #00baad}
+.adm-jumbo-tabs-tab-active .month,.adm-jumbo-tabs-tab-active .original-price{color:#ffffff}
+.original-price{margin: 0;padding: 0;text-decoration: line-through; }
+
+.save {padding: 15px 0;margin:0}
+.adm-jumbo-tabs-tab {
+    padding: 5px;
+}
+.adm-jumbo-tabs-tab-wrapper {
+    flex: 0 0;
+    padding: 22px 0 0 0;
+}
+.adm-jumbo-tabs-tab-description {
+    padding: 0 ;
+    color: #454c4e;
 }
 .adm-jumbo-tabs-tab-active .block {
-    border: 2px solid #00baad;
-    padding: 3px;
+  border: 2px solid #00baad;
+  padding: 3px;
+  background-color: #f2fffe;
+  color: #ffffff;
 }
 .sku-box {
-    background: #fefffe;
+  background: #fefffe;
 }
 .header-content {
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  white-space: normal;
 }
 .line {
-    height: 1px;
-    background-color: #fefffe;
-    width: 100%;
+  height: 1px;
+  background-color: #fefffe;
+  width: 100%;
 }
-.price{
-    border-top:1px #fff solid;
-    text-align: center;
-    padding:8px 0 10px 0;
-    color: #00baad;
+.price {
+  border-top: 1px #fff solid;
+  text-align: center;
+  padding: 8px 0 10px 0;
 }
+
+
+.year{padding: 0;margin-top: 7px;}
 .price span {
-    font-weight: 600;
-    font-size: 30px;
+  font-weight: 600;
+  font-size: 30px;
 }
-.header{
-    font-weight: 500;
-    padding:9px 0;
-    text-align: center;
-    padding-top:25px;
+.header-title {
+  font-weight: 500;
+  padding: 9px 0;
+  text-align: center;
+  padding-top: 25px;
+
 }
 .adm-jumbo-tabs-tab-active .header-content {
-    background: linear-gradient(98.57deg, #15C7C5 0%, #2DD6B3 100%);   
+  background: linear-gradient(98.57deg, #15c7c5 0%, #2dd6b3 100%);
 }
 .adm-jumbo-tabs-tab-active .price {
-    color: #ffffff;
+  color: #ffffff;
 }
-.adm-jumbo-tabs-tab-active, .adm-jumbo-tabs-tab-description {
-    background-color: #fefffe!important;
+.adm-jumbo-tabs-tab-active,
+.adm-jumbo-tabs-tab-description {
+  background-color: #fefffe !important;
 }
 .detail {
-    background-color: #fefffe;
-    min-height: 340px;
-    border-top: 1px solid #e8e8e8;
+  background-color: #fefffe;
+  border-top: 1px solid #e8e8e8;
 }
 .btnwrapper {
-    font-size: 16px;
-    border: 1px solid #dedede;
-    border-radius: 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  font-size: 16px;
+  border: 1px solid #dedede;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .btnwrapper div {
-    width: 50%;
-    text-align: center;
+  width: 50%;
+  text-align: center;
 }
 button {
-    width: 50%;
+  width: 50%;
 }
 .pop-head {
-    font-weight: 600;
-    padding: 48px 32px 36px;
-    text-align: center;
+  font-weight: 600;
+  padding: 48px 32px 36px;
+  text-align: center;
 }
+.detail {
+  border-top: 1px #e8e8e8 solid;
+  padding: 15px 12px;
+  color: #454c4e;
+  position: relative;
+  font-size: 12px;
+}
+.detail ul {
+  padding: 0;
+  text-align: left;
+}
+.detail li {
+  padding: 8px 0;
+  position: relative;
+  padding-left: 24px;
+  line-height: 1.5;
+  list-style-type: none;
+  white-space: normal;
+}
+.detail img {
+  width: 20px;
+  position: absolute;
+  left: -3px;
+  top: 8px;
+}
+.detail .span-small {
+  color: #222528;
+  opacity: 0.64;
+  font-size: 10px;
+}
+.discound-banner{
+    position:absolute;
+     background: linear-gradient(135deg, #FF2224 0%, #FF6B7A 100%);
+     color:#fff;
+     width:95px;
+     font-size:14px;
+     height:25px;
+     text-align: center;
+     line-height: 25px;
+     border-top-right-radius: 15px;
+     border-bottom-left-radius: 15px;
+     top:-13px;
+     right:-1px;
+ }
