@@ -10,25 +10,27 @@ const Description = ({ value }) => {
         <div className="price">
           $<span> {value.price / 100} </span>/{value.serviceCycle == 1 ? "Mo" : "Yr"}
         </div>
-        <div>{value.skuName}</div>
+        {value.serviceCycle == 36?
+        <div className="price" >
+          <p><span>{value.yearPrice}</span> /3 Yr</p>$ 
+          { value.discount&& (value.priceReal > value.yearPrice) && isAppleTestAccount != 1? <p >Was $<span>{ value.priceReal}</span> </p>:null}
+          <p >Equals to ${value.monthPrice} per month</p>
+        </div>:null}
+ 
+
+
       </div>
       <div className="detail"></div>
     </div>
   )
 }
 
-const SkuBox = ({ planList, maxSavePrice, handleSelect }) => {
-  const [activeKey, setActiveKey] = useState("0")
+const SkuBox = ({ planList, maxSavePrice, handleSelect, selectedPlan }) => {
   const [visible, setVisible] = useState(false)
-
-  const handleChange = (value) => {
-    handleSelect(value)
-    setActiveKey(value)
-  }
 
   return (
     <div className="sku-box">
-      <JumboTabs activeKey={activeKey} onChange={handleChange}>
+      <JumboTabs activeKey={selectedPlan||'0'} onChange={handleSelect}>
         {planList?.map((item, index) => {
           return (
             <JumboTabs.Tab description={<Description value={item} />} key={index}>

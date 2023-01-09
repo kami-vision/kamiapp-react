@@ -21,43 +21,49 @@ const Cloudbuy = ({ commonProps }) => {
   const { isAppleTestAccount, deviceType, appName, userInfo } = commonProps
   const [yearlyList, setYearlyList] = useState([])
   const [monthlyList, setMonthlyList] = useState([])
-  const [selectedPlan, setSelectedPlan] = useState({})
+  const [selectedPlan, setSelectedPlan] = useState('')
   const [maxSavePrice, setMaxSavePrice] = useState("")
   const isGoogePurchase = getIsAppImplementFunc('getGooglePurchases:') == 1
   const isAllowGoogle = getIsAppImplementFunc('getGooglePlayBilling:') == 1
-  const existOrder = true
+  const existOrder = false
   useEffect(() => {
     if(deviceType==2) {
-     // const iosPrices = dsBridge.call("getIOSPrices")||'';
-    
+     dsBridge.call("getIOSPrices",getCloudList)
     }else {
-     //const googlePrices = dsBridge.call('getGooglePrices')||''
+      getCloudList()
+    // dsBridge.call("getGooglePrices",getCloudList)
     }
-    getCloudList()
+   // 
   }, [])
-  // useEffect(() => {
-  //   handleSelect('0')
-  // }, [monthlyList])
-  
-  const getCloudList = () => {
-    const params = {
-      type: 1,
-      channel: userInfo.region == "SG" ? SGChannelStatus() : channelStatus(deviceType, serviceType(appName)),
-    }
+  useEffect(() => {
+    setMaxSavePrice(calcMaxSave(0))
+  }, [monthlyList])
+
+  const getCloudList = (e) => {
+    const params = { type: 1,channel: userInfo.region == "SG" ? SGChannelStatus() : channelStatus(deviceType, serviceType(appName)),}
     getCloudProductList(params).then((json) => {
-      console.log('%c [ json ]-47', 'font-size:13px; background:pink; color:#bf2c9f;', json)
-      filterPlanList(json?.data?.productsDtos || [])
+      const list = e?JSON.parse(e):null
+      filterPlanList(json?.data?.productsDtos || [],list)
     })
   }
 
-  const filterPlanList = (data) => {
-    console.log('%c [ data ]-52', 'font-size:13px; background:pink; color:#bf2c9f;', data)
+  const filterPlanList = (data,e) => {
     let yearly = []
     let monthly = []
     data.forEach((item, index) => {
       if (item.serviceCycle == 1) {
+        if(e) {
+          const arr = e.filter(v=>v.tripartiteProductIdentifier==item.tripartiteProductIdentifier)
+          arr[0]&&arr[0].price&&(item.price = arr[0].price)
+        }else{
+          
+        }
         monthly.push(item)
       } else {
+        if(e) {
+          const arr = e.filter(v=>v.tripartiteProductIdentifier==item.tripartiteProductIdentifier)
+          arr[0]&&arr[0].price&&(item.price = arr[0].price)
+        }
         yearly.push(item)
       }
     })
@@ -84,11 +90,15 @@ const Cloudbuy = ({ commonProps }) => {
     return defaultInfo.currencySymbol[currency] || "$"
   }
   const handleSelect = (e) => {
+    setSelectedPlan(e)
+    setMaxSavePrice(calcMaxSave(e))
+  }
+  const calcMaxSave = (e)=>{
     let save
     monthlyList[e] &&
       yearlyList[e] &&
       (save = ((monthlyList[e]?.price / 100) * 12 - yearlyList[e]?.price / 100).toFixed(2))
-    setMaxSavePrice(save)
+      return save
   }
   return (
     <>
@@ -98,7 +108,7 @@ const Cloudbuy = ({ commonProps }) => {
             All yearly plans come with an extended <br />
             18 month hardware warranty for FREE
           </Title>
-          <SkuBox planList={yearlyList} handleSelect={handleSelect} />
+          <SkuBox planList={yearlyList} handleSelect={handleSelect} selectedPlan={selectedPlan}/>
         </Tabs.Tab>
         <Tabs.Tab title="MONTHLY" key="monthly">
           {maxSavePrice ? (
@@ -111,7 +121,7 @@ const Cloudbuy = ({ commonProps }) => {
               and get an extended 18 month hardware warranty FREE
             </Title>
           ) : null}
-          <SkuBox planList={monthlyList} maxSavePrice={maxSavePrice} handleSelect={handleSelect} />
+          <SkuBox planList={monthlyList} maxSavePrice={maxSavePrice} handleSelect={handleSelect} selectedPlan={selectedPlan}/>
         </Tabs.Tab>
       </Tabs>
     </>
