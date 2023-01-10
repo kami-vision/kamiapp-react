@@ -3,6 +3,8 @@ import { Tabs, DotLoading } from "antd-mobile"
 import SkuBox from "./components/SkuBox"
 import styled from "styled-components"
 import dsBridge from "../../utils/dsbridge"
+import { useTranslation } from "react-i18next";
+
 import {
   getCloudProductList,
   getServiceList,
@@ -19,6 +21,7 @@ const Title = styled.div`
   margin-top: 18px;
 `
 const Cloudbuy = ({ commonProps }) => {
+  const { t } = useTranslation();
   const { isAppleTestAccount, deviceType, appPlatform, userInfo } = commonProps
   const [yearlyList, setYearlyList] = useState([])
   const [monthlyList, setMonthlyList] = useState([])

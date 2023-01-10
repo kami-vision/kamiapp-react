@@ -9,10 +9,12 @@
     "babel-plugin-import": "^1.13.5",
     "base64-js": "^1.5.1",
     "create-hmac": "^1.1.7",
+    "i18next": "^22.4.9",
     "node-polyfill-webpack-plugin": "^2.0.1",
     "react": "^18.2.0",
     "react-app-rewired": "^2.2.1",
     "react-dom": "^18.2.0",
+    "react-i18next": "^12.1.4",
     "react-router-dom": "^6.6.1",
     "styled-components": "^5.3.6",
     "web-vitals": "^2.1.4"
