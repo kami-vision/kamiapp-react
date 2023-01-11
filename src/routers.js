@@ -1,10 +1,14 @@
 import React from "react"
+import DemoPhone from './utils/demoPhone'
+
 import Cloudbuy from "./pages/cloudbuy/index"
 import ManageCamera from "./pages/manageCamera/index"
 import Orders from "./pages/orders/index"
 import CloudRenew from "./pages/cloudbuy/renew"
+import BabyGuide from "./pages/babyGuide/index"
+import BabyGuideDetail from "./pages/babyGuide/detail"
 
-import DemoPhone from './utils/demoPhone'
+
 const defaultObj = new DemoPhone().defaultObj ;
 import { isAppleTestAccount, getPlatform, getAppName, getUserInfo, getHost } from "./utils/getCommonInfo"
 const commonProps = {
@@ -18,7 +22,7 @@ const commonProps = {
 const routes = [
   {
     path: "/",
-    element: <Cloudbuy commonProps={commonProps} />,
+    element: <BabyGuide commonProps={commonProps} />,
   },
   {
     path: "/cloudbuy",
@@ -36,6 +40,15 @@ const routes = [
     path: "/cloudRenew",
     element: <CloudRenew commonProps={commonProps} />,
   },
+  {
+    path: "/babyGuide",
+    element: <BabyGuide commonProps={commonProps} />,
+  },
+  {
+    path: "/babyDetail",
+    element: <BabyGuideDetail commonProps={commonProps} />,
+  },
+  
   // {
   //   path: "/orderDetail",
   //   element: <ManageCamera commonProps={commonProps} />,

@@ -56,7 +56,7 @@ lang = lang.includes("zh")? lngs.includes(lang.replace("-", "_"))
 		: "zh_cn"
 	: lang.substring(0, 2);
 localStorage.setItem("locale", lang);
-console.log('%c [ lang ]-74', 'font-size:13px; background:pink; color:#bf2c9f;', lang)
+
 const dTfrmt = {};
 for (let lng of lngs) {
 	dTfrmt[lng] = {

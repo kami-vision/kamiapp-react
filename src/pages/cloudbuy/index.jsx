@@ -32,6 +32,7 @@ const Cloudbuy = ({ commonProps }) => {
   const discountPercentage = window.localStorge?.getItem("discountPercentage") || ""
   const [existOrder, setExistOrder] = useState(false)
   const [isFreeUse, setIsFreeUse] = useState(true)
+
   useEffect(() => {
     getOnTrialState(() => getPrice())
     //
@@ -151,14 +152,14 @@ const Cloudbuy = ({ commonProps }) => {
     let defaultInfo = defaultCommonInfo()
     return defaultInfo.currencySymbol[currency] || "$"
   }
-
+  
+  const currency = selectedPlan ? getCurrencyCode(selectedPlan.realCurrency) : "$"
   return (
     <>
       <Tabs color="primary">
-        <Tabs.Tab title="YEARLY" key="yearly">
+        <Tabs.Tab title={t("h5_cloudBuy_yearly")} key="yearly">
           <Title>
-            All yearly plans come with an extended <br />
-            18 month hardware warranty for FREE
+            {t('h5_cloud_warranty')}
           </Title>
           <SkuBox
             planList={yearlyList}
@@ -168,15 +169,10 @@ const Cloudbuy = ({ commonProps }) => {
             region={userInfo.region}
           />
         </Tabs.Tab>
-        <Tabs.Tab title="MONTHLY" key="monthly">
+        <Tabs.Tab title={t("h5_cloudBuy_monthly")}  key="monthly">
           {maxSavePrice ? (
             <Title className="save">
-              Save up to
-              <span>
-                {selectedPlan ? getCurrencyCode(selectedPlan.realCurrency) : "$"} {maxSavePrice}{" "}
-              </span>
-              when you pay yearly <br />
-              and get an extended 18 month hardware warranty FREE
+             <div dangerouslySetInnerHTML={{__html: t('h5_cloud_save_max_font', { currency: currency, price: maxSavePrice })}}></div>    
             </Title>
           ) : null}
           <SkuBox
