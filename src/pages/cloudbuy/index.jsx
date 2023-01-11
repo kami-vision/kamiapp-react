@@ -3,7 +3,7 @@ import { Tabs, DotLoading } from "antd-mobile"
 import SkuBox from "./components/SkuBox"
 import styled from "styled-components"
 import dsBridge from "../../utils/dsbridge"
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next"
 
 import {
   getCloudProductList,
@@ -21,7 +21,7 @@ const Title = styled.div`
   margin-top: 18px;
 `
 const Cloudbuy = ({ commonProps }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   const { isAppleTestAccount, deviceType, appPlatform, userInfo } = commonProps
   const [yearlyList, setYearlyList] = useState([])
   const [monthlyList, setMonthlyList] = useState([])
@@ -32,7 +32,11 @@ const Cloudbuy = ({ commonProps }) => {
   const discountPercentage = window.localStorge?.getItem("discountPercentage") || ""
   const [existOrder, setExistOrder] = useState(false)
   const [isFreeUse, setIsFreeUse] = useState(true)
-
+  const [motionOrCvr, setMotionOrCvr] = useState("motion")
+  const redeem = {
+    showLayer: false,
+    serviceCode: "",
+  }
   useEffect(() => {
     getOnTrialState(() => getPrice())
     //
@@ -129,7 +133,7 @@ const Cloudbuy = ({ commonProps }) => {
   }
   // 查看用户是否有试用权限
   const getOnTrialState = (cb) => {
-    const params = {country: userInfo.country, appPlatform: appPlatform}
+    const params = { country: userInfo.country, appPlatform: appPlatform }
     getTrial(params).then((json) => {
       // trial 1-新用户 0-非新用户   subscription 1-无订阅中订单  0-有订阅订单
       if (json.code == "20000") {
@@ -144,7 +148,7 @@ const Cloudbuy = ({ commonProps }) => {
         } else {
           setExistOrder(false)
         }
-      }    
+      }
     })
     cb()
   }
@@ -152,28 +156,137 @@ const Cloudbuy = ({ commonProps }) => {
     let defaultInfo = defaultCommonInfo()
     return defaultInfo.currencySymbol[currency] || "$"
   }
-  
+  const popShowFun = (e) => {}
+  const toCvrInof = () => {}
+  const handlerShowPromo = () => {}
+  const handlerShowRedeemLayer = () => {}
+  const handlerCloseDiscount = () => {}
   const currency = selectedPlan ? getCurrencyCode(selectedPlan.realCurrency) : "$"
+  const closeSrc = "../../assets/cloudList/close.png"
   return (
     <>
       <Tabs color="primary">
         <Tabs.Tab title={t("h5_cloudBuy_yearly")} key="yearly">
-          <Title>
-            {t('h5_cloud_warranty')}
-          </Title>
+          <Title>{t("h5_cloud_warranty")}</Title>
           <SkuBox
             planList={yearlyList}
             handleSelect={(e) => setSelectedPlan(e)}
             selectedPlan={selectedPlan}
             isAppleTestAccount={isAppleTestAccount}
             region={userInfo.region}
+            appPlatform={appPlatform}
+            deviceType={deviceType}
           />
+          <div>
+            <div className="introduce">
+              <div className="cvr">
+                {motionOrCvr == "motion" ? <span onClick={popShowFun(1)}>{t("h5_what_is_CVR")}</span> : null}
+              </div>
+              <p className="introduce-cvr">¹ {t("h5_CVR_recording_not_support")}</p>
+              {motionOrCvr !== "motion" ? (
+                <div className="introduce-text">
+                  *Limitations for
+                  <span onClick={toCvrInof}>battery powered cameras</span> apply.
+                </div>
+              ) : null}
+            </div>
+            {deviceType == 2 ? (
+              <div className="purchase-intro">
+                {!existOrder ? (
+                  <p>
+                    {t("h5_cloud_buy_agreementIOS")}
+                    <br />
+                    <span onClick={handlerLink(0)}>{t("XYRegister_1447845904_70")}</span> |{" "}
+                    <span onClick={handlerLink(1)}>{t("h5_cloud_buy_linkPolicy")}</span>
+                  </p>
+                ) : null}
+                <div>
+                  <p className="title">{t("h5_cloud_buy_productSelectedExistOrder")}</p>
+                  <p>{t("h5_cloud_buy_productExistOrderIOSIntroYIIOT")}</p>
+                </div>
+              </div>
+            ) : null}
+
+            <div className="redeem-box">
+              {deviceType == 1 && !discountPercentage && userInfo.region != "SG" ? (
+                <div className="redeem-div" onClick={handlerShowPromo}>
+                  <p>{t("h5_redeem_promo_code")}</p>
+                </div>
+              ) : null}
+              {deviceType ? (
+                <div className="redeem-div" onClick={handlerShowRedeemLayer}>
+                  <p>{t("h5_cloud_buy_androidServiceCode")}</p>
+                </div>
+              ) : null}
+              {deviceType == 1 && discountPercentage ? (
+                <div className="redeem-discount">
+                  <p>{discountPercentage}% discount applied</p>
+                  {/* <img onClick={handlerCloseDiscount} src={closeSrc} width="12" /> */}
+                </div>
+              ) : null}
+
+              {deviceType == 2 ? (
+                <div className="redeem-info">
+                  <p>{t("h5_cloud_redeem_info")}</p>
+                </div>
+              ) : null}
+            </div>
+            {isAllowGoogle ? (
+              <div className="google-privacy">
+                Your Google Play Account will be charged{" "}
+                {selectedPlan && selectedPlan.realCurrency
+                  ? getCurrencyCode(selectedPlan.realCurrency)
+                  : "$"}
+                {selectedPlan && selectedPlan.productPriceShow}
+                each {tab} once the free trial ends. Subscription automatically renews unless auto-renew is turned off
+                at least 24-hours before the end of the current billing cycle. You can manage your subscription and turn
+                off auto-renew from your Google Play settings.
+                <p>
+                  <span onClick={handlerLink(0)}>{t("XYRegister_1447845904_70")}</span> |{" "}
+                  <span onClick={handlerLink(1)}>{t("h5_cloud_buy_linkPolicy")}</span>
+                </p>
+              </div>
+            ) : null}
+            <div className="jump-link-wrap">
+              {deviceType == 2 && existOrder ? (
+                <p onClick={handlerLink(1)}>
+                  <span>
+                    <a onClick={handlerLink(0)}>{t("XYRegister_1447845904_70")}</a> &
+                    <a onClick={handlerLink(1)}>{t("h5_cloud_buy_linkPolicy")}</a>
+                  </span>
+                  {/* <em><van-icon name="arrow" /> </em> */}
+                </p>
+              ) : null}
+            </div>
+            {redeem.showLayer ? (
+              <div class="redeem-layer">
+                <div class="layer-inner">
+                  <p class="layer-span">{t("h5_cloud_buy_serviceCodeLayerLabel")}</p>
+                  <p class="layer-span">{t("h5_cloud_buy_serviceCodeLayerTitle")}</p>
+                  <div class="layer-input-item">
+                    <input type="text" maxlength="18" class="layer-input" value={redeem.serviceCode} />
+                  </div>
+                  <div class="layer-button-box">
+                    <div class="btn-layer" onClick={handlerRedeemLayerClose}>
+                      {t("h5_cloud_common_btnCancel")}
+                    </div>
+                    <div class="btn-layer" onClick={handlerRedeemLayerSubmit}>
+                      {t("h5_cloud_common_btnSubmit")}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : null}
+          </div>
         </Tabs.Tab>
-        <Tabs.Tab title={t("h5_cloudBuy_monthly")}  key="monthly">
+        <Tabs.Tab title={t("h5_cloudBuy_monthly")} key="monthly">
           {maxSavePrice ? (
-            <Title className="save">
-             <div dangerouslySetInnerHTML={{__html: t('h5_cloud_save_max_font', { currency: currency, price: maxSavePrice })}}></div>    
-            </Title>
+            <Title
+              className="save"
+              dangerouslySetInnerHTML={{
+                __html: t("h5_cloud_save_max_font", { currency: currency, price: maxSavePrice }),
+              }}
+            ></Title>
           ) : null}
           <SkuBox
             planList={monthlyList}
@@ -181,6 +294,8 @@ const Cloudbuy = ({ commonProps }) => {
             selectedPlan={selectedPlan}
             isAppleTestAccount={isAppleTestAccount}
             region={userInfo.region}
+            appPlatform={appPlatform}
+            deviceType={deviceType}
           />
         </Tabs.Tab>
       </Tabs>

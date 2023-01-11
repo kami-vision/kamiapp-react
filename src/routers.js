@@ -22,7 +22,7 @@ const commonProps = {
 const routes = [
   {
     path: "/",
-    element: <BabyGuide commonProps={commonProps} />,
+    element: <Cloudbuy commonProps={commonProps} />,
   },
   {
     path: "/cloudbuy",

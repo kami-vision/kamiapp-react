@@ -4,9 +4,17 @@ import Description from './Description'
 import "./plan.css"
 
 
-const SkuBox = ({ planList, handleSelect, selectedPlan, isAppleTestAccount, region }) => {
+const SkuBox = ({ planList, handleSelect, selectedPlan, isAppleTestAccount, region, appPlatform,deviceType}) => {
+  console.log('%c [ appPlatform ]-8', 'font-size:13px; background:pink; color:#bf2c9f;', deviceType)
   const [visible, setVisible] = useState(false)
-
+  const gotoBuy= ()=>{
+    if(appPlatform==1) {
+        setVisible(true)
+    }else {
+      
+    }
+  
+  }
   return (
     <div className="sku-box">
       <JumboTabs activeKey={selectedPlan || "0"} onChange={handleSelect}>
@@ -18,7 +26,7 @@ const SkuBox = ({ planList, handleSelect, selectedPlan, isAppleTestAccount, regi
             >
               <div className="btnwrapper">
                 <div>$ {item.serviceCycle==1?item.monthPrice:item.yearPrice}</div>
-                <Button color="primary" fill="solid" onClick={() => setVisible(true)}>
+                <Button color="primary" fill="solid" onClick={() => gotoBuy(item)}>
                   BUY NOW
                 </Button>
               </div>
