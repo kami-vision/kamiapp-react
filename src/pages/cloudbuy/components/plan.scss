@@ -80,13 +80,19 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  overflow: hidden;
+
 }
-.btnwrapper div {
-  width: 50%;
+.btnwrapper .price {
+  width: 36%;
   text-align: center;
 }
-button {
-  width: 50%;
+.button {
+width: 64%;
+background-color: #00baad;
+height: 40px;
+color: #fff;
+line-height: 40px;
 }
 .pop-head {
   font-weight: 600;
@@ -137,3 +143,17 @@ button {
      top:-13px;
      right:-1px;
  }
+ .adm-tabs-content {
+  padding: 0;
+ }
+ .adm-jumbo-tabs-content {
+  width: calc(100% - 24px);
+  position: fixed;
+  bottom: 0;
+  padding:0 12px 30px 12px;
+  background-color: #ffffff;
+
+}
+.adm-popup-body {width: 100%;padding-top: 20px;}
+.adm-popup-body > div{padding: 10px 20px}
+.adm-popup-body button{width: 100%;display: inline-block;margin: 6px;}

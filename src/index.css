@@ -59,5 +59,7 @@ code {
 }
 .adm-tabs-tab-list {
   margin: 0 auto;
-
+}
+.adm-button {
+  border-radius: 8px!important;
 }
