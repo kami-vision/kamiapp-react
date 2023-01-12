@@ -2,15 +2,13 @@ import React, { useEffect, useState } from "react"
 import { JumboTabs, Button, Popup } from "antd-mobile"
 import { useTranslation } from "react-i18next"
 import Description from "./Description"
+import Payment from './PayMethodsPanel'
 import "./plan.scss"
 import dsBridge from "../../../utils/dsbridge"
 import {
-  getCloudProductList,
-  getServiceList,
   setOrderCreateToken,
   generateOrder,
   createOrderByServiceCode,
-  getTrial,
 } from "../../../api/cloudbuy"
 import { getIsAppImplementFunc } from "../../../utils/getCommonInfo"
 const SkuList = ({
@@ -26,7 +24,6 @@ const SkuList = ({
 }) => {
   const { t } = useTranslation()
   const [visible, setVisible] = useState(false)
-  const [payMethodShow, setPayMethodShow] = useState(false)
   const isGoogePurchase = getIsAppImplementFunc("getGooglePurchases:") == 1
 
   const clickBuy = () => {
@@ -36,15 +33,7 @@ const SkuList = ({
       confirmBuy()
     }
   }
-  const gotoBuy=()=>{
-    if(deviceType==1) {
-      setVisible(false)
-      setPayMethodShow(true)
-    }else {
-      confirmBuy()
-    }
-    
-  }
+
   const confirmBuy = () => {
     const params = {
       seq: 1,
@@ -54,6 +43,7 @@ const SkuList = ({
     }
     setOrderCreateToken(params).then((json) => {
       const plan = planList[selectedPlan]
+      console.log('%c [ selectedPlan ]-49', 'font-size:13px; background:pink; color:#bf2c9f;', selectedPlan)
       if (json.code == 20000) {
         const orderCreateToken = json.data
         const obj = {
@@ -124,35 +114,7 @@ const SkuList = ({
           )
         })}
       </JumboTabs>
-      <Popup
-        visible={visible}
-        onMaskClick={() => {
-          setVisible(false)
-        }}
-        bodyStyle={{ height: "40vh", borderTopLeftRadius: "48px", borderTopRightRadius: "48px" }}
-      >
-        <div className="pop-head">{t("h5_cloud_buy_active_plan_exist_title")}</div>
-        <div className="pop-subhead">{t("h5_cloud_buy_active_plan_exist_message")}</div>
-        <div>
-          <Button color="primary" onClick={gotoBuy}>
-            {t("h5_cloud_buy_active_plan_exist_confirm")}
-          </Button>
-          <Button onClick={() => setVisible(false)}>{t("h5_cloud_buy_active_plan_exist_cancel")}</Button>
-        </div>
-      </Popup>
-      <Popup
-        visible={payMethodShow}
-        onMaskClick={() => {
-          setPayMethodShow(false)
-        }}
-        bodyStyle={{ height: "40vh", borderTopLeftRadius: "48px", borderTopRightRadius: "48px" }}
-      >
-        <div className="pop-head">card list</div>
-        <div className="pop-subhead">paypal</div>
-        <div>
-
-        </div>
-      </Popup>
+      <Payment visible={visible} confirmBuy={confirmBuy} deviceType={deviceType} setVisible={setVisible} />
     </div>
   )
 }

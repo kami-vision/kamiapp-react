@@ -154,6 +154,28 @@ line-height: 40px;
   background-color: #ffffff;
 
 }
-.adm-popup-body {width: 100%;padding-top: 20px;}
+.adm-popup-body {width: 100%; padding: 10px 0 20px 0;}
 .adm-popup-body > div{padding: 10px 20px}
 .adm-popup-body button{width: 100%;display: inline-block;margin: 6px;}
+
+.btn-card {
+  background: #003b70;
+  color: #ffffff;
+  >div {
+    background: url("../../../assets/icon-card.png")no-repeat fixed center;
+  }
+}
+.btn-paypal {
+  background: #ffc439;
+  color: black;
+  >div {
+    background: url("../../../assets/icon-paypal.png")no-repeat fixed center;
+  }
+}
+.btn-gpay {
+  background: black;
+  color: #ffffff;
+  div{
+    background: url("../../../assets/icon-gpay.png")  no-repeat fixed center;
+  }
+}
