@@ -28,7 +28,7 @@ const guideList = [
     'How to use the baby diary function?',
   ]
 
-  const BabaGuide = ()=> {
+  const BabyGuide = ()=> {
     const history = useNavigate();
 
     const gotoDetail = (id)=>{
@@ -45,4 +45,4 @@ const guideList = [
         </Wrap>
     )
   }
-export default BabaGuide
+export default BabyGuide
