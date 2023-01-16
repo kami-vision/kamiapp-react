@@ -1,16 +1,18 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
+import { useLocation, Navigate } from "react-router-dom";
 import DemoPhone from './utils/demoPhone'
-
 import Cloudbuy from "./pages/cloudbuy/index"
+import AddCard from "./pages/cloudbuy/addCard"
 import ManageCamera from "./pages/manageCamera/index"
 import Orders from "./pages/orders/index"
 import CloudRenew from "./pages/cloudbuy/renew"
 import BabyGuide from "./pages/babyGuide/index"
 import BabyGuideDetail from "./pages/babyGuide/detail"
-
+import { useTranslation } from "react-i18next"
 
 const defaultObj = new DemoPhone().defaultObj ;
 import { isAppleTestAccount, getPlatform, getAppName, getUserInfo, getHost } from "./utils/getCommonInfo"
+
 const commonProps = {
   isAppleTestAccount: isAppleTestAccount()||0,
   deviceType: getPlatform() == 'Android' ? 1 : 2,
@@ -18,15 +20,23 @@ const commonProps = {
   userInfo: getUserInfo()||defaultObj,
   host: getHost()||defaultObj.host,
 }
+const CommonRoute = ({Route,title,staticTitle})=>{
+  const location = useLocation();
+  const {t} = useTranslation()
+  useEffect(() => {
+    title ? document.title = t(title) : document.title = staticTitle
+  },[location]);
+  return (
+    <>
+      <Route commonProps={commonProps}></Route>
+    </>
+  )
+}
 
 const routes = [
   {
     path: "/",
-    element: <Cloudbuy commonProps={commonProps} />,
-    meta: {
-      title: 'cloud buy'
-    }
-
+    element: <CommonRoute Route={Cloudbuy} staticTitle={'Kami Cloud Plans'}/>
   },
   {
     path: "/cloudbuy",
@@ -34,7 +44,7 @@ const routes = [
   },
   {
     path: "/manageCamera",
-    element: <ManageCamera commonProps={commonProps} />,
+    element: <CommonRoute Route={ManageCamera} title={'h5_manageCamera_pageName'}/>
   },
   {
     path: "/orders",
@@ -51,6 +61,10 @@ const routes = [
   {
     path: "/babyDetail",
     element: <BabyGuideDetail commonProps={commonProps} />,
+  },
+  {
+    path: "/addCard",
+    element: <CommonRoute Route={AddCard} staticTitle={'Add card'}/>
   },
   
   // {

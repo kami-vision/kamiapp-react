@@ -1,19 +1,25 @@
 import React, { useEffect, useState } from "react"
-import { JumboTabs, Button, Popup, Mask } from "antd-mobile"
+import {  Button, Popup, Mask } from "antd-mobile"
 import { useTranslation } from "react-i18next"
+import { useNavigate } from 'react-router-dom';
 import Description from "./Description"
 import "./plan.scss"
 import dsBridge from "../../../utils/dsbridge"
 import styled from "styled-components"
 import {getModifiedDate} from './../../../utils/util'
 import {
-  getCloudProductList,
-  getServiceList,
   setOrderCreateToken,
   generateOrder,
   createOrderByServiceCode,
-  getTrial,
+  toPayByPalpal,
+  toPayByCard,
+  getCard,
+  createCustomer,
+  getOrderDetail,
+  getStripePayKey,
+  createStripePay
 } from "../../../api/cloudbuy"
+
 import { getIsAppImplementFunc } from "../../../utils/getCommonInfo"
 
 const Row = styled.div`
@@ -68,9 +74,17 @@ const FlexRow = styled.div`
   font-weight: 600;
 `
 const Payment = ({ visible, confirmBuy, deviceType, setVisible, plan }) => {
+  const history = useNavigate()
   const { t } = useTranslation()
   const [maskShow, SetMaskShow] = useState(false)
   const [step, setStep] = useState(1)
+  const [cardsList, setCardsList] = useState([])
+  const [selectedCard, setSelectedCard] = useState({})
+  useEffect(()=>{
+    getCard().then((res)=>{
+      setCardsList(res?.data?.cards||[])
+    })
+  },[])
   const gotoBuy = () => {
     if (deviceType == 1) {
       setStep(2)
@@ -160,6 +174,14 @@ const Payment = ({ visible, confirmBuy, deviceType, setVisible, plan }) => {
 									: t("h5_cloud_buy_month"))
 						}</span>
             </FlexRow>
+            select your card
+            {cardsList?.map((item)=>{
+              return (
+                <div onClick={()=>{setSelectedCard(item)}}>{item.brand}</div>
+              )
+            })}
+            <Button onClick={()=>{history('/addCard')}}>Add new card</Button>
+            <Button color="primary">Purchase</Button>
           </CardInner>
         </CardInfo>
       </Mask>
@@ -168,60 +190,3 @@ const Payment = ({ visible, confirmBuy, deviceType, setVisible, plan }) => {
 }
 
 export default Payment
-
-// <div class="payment__lower--content">
-
-//   <div class="promo-code" v-if="orderInfo.discountPrice">
-//     {{ orderInfo.discountPercentage }}% discount applied for {{ orderInfo.serviceTime === 12 ? '1 year': '12 months'}}
-//   </div>
-//   <ul class="payment__lower--content-disclaimer">
-//     <li>{{ $t("h5_cloud_buy_disclaimer_cancelAnytime") }}</li>
-//     <li v-if="orderInfo.free">
-//       {{
-//         $t("h5_cloud_buy_disclaimer_freeTrial") +
-//           " " +
-//           $d(getModifiedDate(orderInfo.freeDays), "short", locale)
-//       }}
-//     </li>
-//     <li>
-//       {{
-//         orderInfo.serviceTime === 12
-//           ? $t("h5_cloud_buy_disclaimer_renew_year")
-//           : $t("h5_cloud_buy_disclaimer_renew_month")
-//       }}
-//     </li>
-//   </ul>
-// </div>
-// <div class="payment__lower--card-section">
-//   <div class="payment-promo-flex">
-//     <h5>{{ $t("h5_stripe_card_select") }}</h5>
-//     <div class="add-card" @click="addCard">
-//       <span class="add-card-btn">{{ $t("h5_stripe_card_add") }}</span>
-//     </div>
-//   </div>
-//   <van-radio-group v-model="radio">
-//     <van-radio
-//       class="text"
-//       v-for="(item, index) in cards"
-//       :key="index"
-//       :name="index + ''"
-//       checked-color="#15C7C5"
-//       >{{ item.brand }} **** ***** **** {{ item.last4 }}
-//     </van-radio>
-//   </van-radio-group>
-//   <div class="redeem-discount" v-if="orderInfo.discountPercentage">
-//     <p>{{ orderInfo.discountPercentage }}% Discount Applied</p>
-//     <img @click="handlerCloseDiscount" src="../../assets/cloudList/close.png" width="12" />
-//   </div>
-//   <div v-else class="redeem-div" @click="handlerShowPromo">
-//     <p>{{ $t("h5_redeem_promo_code") }}</p>
-//   </div>
-//   <van-button
-//     @click="handleConfirm"
-//     style="border-radius: 8px"
-//     color="linear-gradient(208deg,rgba(21,199,197,1) 0%,rgba(45,214,179,1) 100%)"
-//   >
-//     Purchase
-//   </van-button>
-// </div>
-// </div>
