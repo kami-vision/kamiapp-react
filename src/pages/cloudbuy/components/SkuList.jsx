@@ -114,7 +114,7 @@ const SkuList = ({
           )
         })}
       </JumboTabs>
-      <Payment visible={visible} confirmBuy={confirmBuy} deviceType={deviceType} setVisible={setVisible} />
+      {planList&&planList.length?<Payment visible={visible} confirmBuy={confirmBuy} deviceType={deviceType} setVisible={setVisible} plan={planList[selectedPlan||0]}/>:null}
     </div>
   )
 }

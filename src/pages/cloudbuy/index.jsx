@@ -103,6 +103,7 @@ const Cloudbuy = ({ commonProps }) => {
     let monthly = []
 
     data.forEach((item, index) => {
+      item.currencySymbol =e?getCurrencyCode(e.currencyCode): getCurrencyCode(item.currency)
       if (item.serviceCycle == 1) {
         if (e) {
           item.currency = e.currencyCode || item.currency

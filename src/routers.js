@@ -23,6 +23,10 @@ const routes = [
   {
     path: "/",
     element: <Cloudbuy commonProps={commonProps} />,
+    meta: {
+      title: 'cloud buy'
+    }
+
   },
   {
     path: "/cloudbuy",
@@ -72,10 +76,9 @@ const routes = [
 // https://kamiapp.kamihome.com/#/cloudRenew
 // https://kamiapp.kamihome.com/#/serviceList
 // https://kamiapp.kamihome.com/#/cardList
-// https://kamiapp.kamihome.com/#/proSecurityBuy
 // https://kamiapp.kamihome.com/#/securityManagePlan
 // https://kamiapp.kamihome.com/#/e911Buy
-
+// https://kamiapp.kamihome.com/#/proSecurityBuy
 
 // https://kamiapp.kamihome.com/#/babyGuide
 // https://kamiapp.kamihome.com/#/serviceIntro
