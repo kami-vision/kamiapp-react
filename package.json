@@ -4,6 +4,7 @@
   "private": true,
   "author": "vera <yanfeng.geng@kamivision.com>",
   "dependencies": {
+    "@stripe/react-stripe-js": "^1.16.3",
     "@stripe/stripe-js": "^1.46.0",
     "antd-mobile": "^5.27.0",
     "axios": "^1.2.2",

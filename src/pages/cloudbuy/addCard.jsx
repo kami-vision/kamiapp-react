@@ -6,6 +6,11 @@ import {  Button } from "antd-mobile"
 const AddCard = ({ commonProps }) => {
   const { t } = useTranslation()
   const [publicKey, setPublicKey] = useState("")
+  const [cardName, setCardName] = useState("")
+  const [postalCode, setPostalCode] = useState("")
+  const [cardNumber, setCarNumber] = useState("")
+  const [cardInfo,setCardInfo] = useState()
+  const [stripe, setStripe] = useState()
   const billingDetails = {
     email: "",
     name: "",
@@ -16,8 +21,9 @@ const AddCard = ({ commonProps }) => {
   }
   useEffect(() => {
     getStripePayKey().then((res) => {
+      console.log('%c [ res ]-24', 'font-size:13px; background:pink; color:#bf2c9f;', res)
       if (res.code == 20000) {
-        setPublicKey(res.data)
+        // setPublicKey(res.data)
         stripeElements(res.data)
       }
     })
@@ -81,47 +87,78 @@ const AddCard = ({ commonProps }) => {
       classes: elementClasses,
     })
     cardCvc.mount("#card-cvc")
+    setCardInfo(cardNumber)
+    setStripe(stripe)
     // this.cardNumber = cardNumber;
+    console.log('%c [ cardNumber ]-93', 'font-size:13px; background:pink; color:#bf2c9f;', cardNumber)
     // this.cardExpiry = cardExpiry;
     // this.cardCvc = cardCvc;
   }
-  const createPaymentMethodAndCustomer=()=>{}
-  console.log("%c [ commonProps ]-4", "font-size:13px; background:pink; color:#bf2c9f;", commonProps)
+  const createPaymentMethodAndCustomer = ()=> {
+    if (!postalCode) {
+      alert("The Zip code cannot be empty");
+      return;
+    }
+    let billing_details = {
+      address: {
+        postal_code: postalCode,
+      }
+    }
+    if(cardName) billing_details.name = cardName
+     //测试用： 4000000000003063  (需要二次验证的卡；)； 4242424242424242 （不需要二次验证的卡）
+    //dsBridge.call("showLoading");
+    stripe
+      .createPaymentMethod("card", cardInfo, {
+        billing_details: billing_details,
+      })
+      .then(function(result) {
+        console.log('%c [ result ]-113', 'font-size:13px; background:pink; color:#bf2c9f;', result)
+        
+        if (result.error) {
+          // 这里处理错误
+          // self.$toast(result.error.message);
+          // self.dsBridge.call("dismissLoading");
+        } else {
+          //self.addCard(result.paymentMethod.id);
+        }
+      });
+  }
+
   return (
     <>
-      <div class="stripe-pay">
-        <div class="card-information-box">
+      <div >
+        <div >
           <p>{t("h5_stripe_card_info")}</p>
           <form>
-            <div class="stage">
+            <div>
               <p>{t("h5_stripe_card_number")}</p>
-              <div id="card-number" class="field empty self"></div>
+              <div id="card-number" ></div>
             </div>
-            <div class="stage-box">
-              <div class="tage-b-left">
+            <div>
+              <div>
                 <p>{t("h5_stripe_card_expdate")}</p>
-                <div id="card-expiry" class="field empty third-width self"></div>
+                <div id="card-expiry"></div>
               </div>
-              <div class="tage-b-right">
+              <div>
                 <p>{t("h5_stripe_card_cvc")}</p>
-                <div id="card-cvc" class="field empty third-width self"></div>
+                <div id="card-cvc" ></div>
               </div>
             </div>
           </form>
         </div>
         <div style={{height:'5px'}}></div>
-        <div class="stage-box" >
-        <div class="tage-b-left" >
+        <div>
+        <div >
           <p>{t('h5_stripe_card_name')} </p>
-          <input class="self" type="text" placeholder={t('h5_stripe_card_typehere')} value={billingDetails.name}  />
+          <input type="text" placeholder={t('h5_stripe_card_typehere')} onChange={(e)=>{setCardName(e)}} />
         </div>
-        <div class="tage-b-right" >
+        <div >
           <p>{t('h5_stripe_card_zip')} </p>
-          <input class="self" placeholder={t('h5_stripe_card_typehere')} value={billingDetails.postalCode}  />
+          <input placeholder={t('h5_stripe_card_typehere')}  onChange={(e)=>{setPostalCode(e)}}  />
         </div>
       </div>
-        <div class="footer">
-          <div class="radio">
+        <div >
+          <div>
             {/* <van-checkbox
 					value="checked"
 					checked-color="#15C7C5"
@@ -131,11 +168,11 @@ const AddCard = ({ commonProps }) => {
 				</van-checkbox> */}
           </div>
           <Button
-            onClick={() => createPaymentMethodAndCustomer}
+            onClick={createPaymentMethodAndCustomer}
             style={{borderRadius: '8px'}}
             color="primary"
           >
-            {t("h5_stripe_card_save")}
+            {t("h5_stripe_card_save")}jjjjj
           </Button>
         </div>
       </div>

@@ -25,7 +25,7 @@ const SkuList = ({
   const { t } = useTranslation()
   const [visible, setVisible] = useState(false)
   const isGoogePurchase = getIsAppImplementFunc("getGooglePurchases:") == 1
-
+  const [orderCode, setOrderCode] = useState('')
   const clickBuy = () => {
     if (activeSubscription) {
       setVisible(true)
@@ -62,6 +62,8 @@ const SkuList = ({
           .then((res) => {
             if (res.code == "20000") {
               const orderCode = res.data?.orderCode
+              console.log('%c [ orderCode ]-65', 'font-size:13px; background:pink; color:#bf2c9f;', orderCode)
+              setOrderCode(orderCode)
               if (deviceType == 2 && isAppleTestAccount == 0) {
                 const paymentJsonIos = {
                   orderCode: orderCode,
@@ -114,7 +116,7 @@ const SkuList = ({
           )
         })}
       </JumboTabs>
-      {planList&&planList.length?<Payment visible={visible} confirmBuy={confirmBuy} deviceType={deviceType} setVisible={setVisible} plan={planList[selectedPlan||0]}/>:null}
+      {planList&&planList.length?<Payment visible={visible} confirmBuy={confirmBuy} deviceType={deviceType} setVisible={setVisible} plan={planList[selectedPlan||0]} orderCode={orderCode}/>:null}
     </div>
   )
 }

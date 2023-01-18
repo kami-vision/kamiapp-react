@@ -48,19 +48,19 @@ const routes = [
   },
   {
     path: "/orders",
-    element: <Orders commonProps={commonProps} />,
+    element: <CommonRoute Route={Orders} commonProps={commonProps} />,
   },
   {
     path: "/cloudRenew",
-    element: <CloudRenew commonProps={commonProps} />,
+    element: <CommonRoute Route={CloudRenew} commonProps={commonProps} />,
   },
   {
     path: "/babyGuide",
-    element: <BabyGuide commonProps={commonProps} />,
+    element: <CommonRoute Route={BabyGuide} commonProps={commonProps} />,
   },
   {
     path: "/babyDetail",
-    element: <BabyGuideDetail commonProps={commonProps} />,
+    element: <CommonRoute Route={BabyGuideDetail} commonProps={commonProps} />,
   },
   {
     path: "/addCard",
@@ -69,16 +69,48 @@ const routes = [
   
   // {
   //   path: "/orderDetail",
-  //   element: <ManageCamera commonProps={commonProps} />,
+  //   element: <CommonRoute Route={AddCard} commonProps={commonProps} />,
   // },
   // {
   //   path: "/onceActive",
-  //   element: <ManageCamera commonProps={commonProps} />,
+  //   element: <CommonRoute Route={AddCard} commonProps={commonProps} />,
+  // },
+  // {
+  //   path: "/cloudRenew",
+  //   element: <CommonRoute Route={AddCard}/>,
+  // },
+  // {
+  //   path: "/serviceList",
+  //   element: <CommonRoute Route={AddCard}/>,
+  // },
+  // {
+  //   path: "/cardList",
+  //   element: <CommonRoute Route={AddCard}/>,
+  // },
+  // {
+  //   path: "/securityManagePlan",
+  //   element: <CommonRoute Route={AddCard}/>,
+  // },
+  // {
+  //   path: "/e911Buy",
+  //   element: <CommonRoute Route={AddCard}/>,
+  // },
+  // {
+  //   path: "/proSecurityBuy",
+  //   element: <CommonRoute Route={AddCard}/>,
   // },
   // {
   //   path: "/serviceIntro",
-  //   element: <ManageCamera />,
+  //   element: <CommonRoute Route={AddCard}/>,
   // },
+  // {
+  //   path: "/e911Faq",
+  //   element: <CommonRoute Route={AddCard}/>,
+  // },
+  // {
+  //   path: "/e911Disconnect",
+  //   element: <CommonRoute Route={AddCard}/>
+  // }
   
 ]
 

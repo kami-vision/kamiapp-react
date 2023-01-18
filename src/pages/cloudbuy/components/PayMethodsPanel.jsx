@@ -177,7 +177,7 @@ const Payment = ({ visible, confirmBuy, deviceType, setVisible, plan }) => {
             select your card
             {cardsList?.map((item)=>{
               return (
-                <div onClick={()=>{setSelectedCard(item)}}>{item.brand}</div>
+                <div onClick={()=>{setSelectedCard(item)}}>Visa  **** ***** ****{item.last4}</div>
               )
             })}
             <Button onClick={()=>{history('/addCard')}}>Add new card</Button>

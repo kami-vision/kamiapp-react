@@ -34,8 +34,8 @@ const resources = {
     uk: { translation: uk},
 }
 
-// let lang = (navigator.language || navigator.browserLanguage).toLowerCase() || "en";
-let lang = 'en'
+let lang = (navigator.language || navigator.browserLanguage).toLowerCase() || "en";
+
 const lngs = [
 	"en",
 	"fr",
